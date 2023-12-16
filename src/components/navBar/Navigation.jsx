@@ -1,9 +1,28 @@
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../../context/user/UserContext";
+import CartIcon from "../cartComponents/cartIcon/CartIcon";
+import CartDropdown from "../cartComponents/cartDropdown/CartDropdown";
+import CartContext from "../../context/cart/CartContext";
 
 
 
 const Navigation = () => {
+    const { infoUser, signOut, authStatus, verifyToken} = useContext(UserContext)
+
+    const { isCartOpen } = useContext(CartContext)
+
+    const [userName, setUserName] = useState("No conectado")
+   
+    console.log(infoUser)
+    useEffect(() => {
+        const getInfoUser = async() => {
+            await verifyToken()
+            setUserName(infoUser.name)
+        }
+        getInfoUser()
+    } , [userName])
 
   return (
     <>
@@ -16,11 +35,17 @@ const Navigation = () => {
                 <Nav className="me-auto">
                     <Nav.Link as={NavLink} to="/products">Products</Nav.Link>
                     <Nav.Link as={NavLink} to="/checkout">Checkout</Nav.Link>
-                    <NavDropdown title={name}>
+                    {authStatus && 
+                        <NavDropdown title={userName}>
                         <NavDropdown.Item as={NavLink} to="/user/profile">My Profile</NavDropdown.Item>
                         <NavDropdown.Item as={NavLink} to="/user/options">Options</NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>    
+                    </NavDropdown> }
+                </Nav>
+                <Nav>
+                    {authStatus ? <Button onClick={signOut} className="me-3">Logout</Button> : <Nav.Link className="me-3" as={NavLink} to="/auth">Login</Nav.Link>}
+                    <CartIcon /> 
+                    {isCartOpen && <CartDropdown />}   
+                </Nav>
             </Navbar.Collapse>
         </Navbar>
     </>

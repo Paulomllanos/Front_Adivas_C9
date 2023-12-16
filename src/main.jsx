@@ -1,18 +1,31 @@
+// Default Dom & React 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+//Main Component
 import App from './App.jsx'
+
+//Styles
 import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+// Providers
 import ProductProvider from './context/products/ProductProvider.jsx'
 import UserProvider from './context/user/UserProvider.jsx'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import CartProvider from './context/cart/CartProvider.jsx'
+
+//Routes
 import { BrowserRouter } from "react-router-dom";
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
         <ProductProvider>
-          <App />
+          <CartProvider>
+            <App />
+          </CartProvider>
         </ProductProvider>
       </UserProvider>
     </BrowserRouter>

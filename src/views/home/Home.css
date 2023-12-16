@@ -8,20 +8,25 @@
     flex-direction: column;
     align-items: center;
     font-family: "Lora", serif;
-    color: #eaeaea;
-    margin-top: 85px;
+    color: #ffffff;
+    margin-top: 10px;
 }
 
 .headerTitleSm {
     position: absolute;
-    top: 18%;
-    font-size: 20px;
+    top: 21%;
+    font-size: 30px;
+    font-weight: 500;
+    -webkit-text-stroke: 0.3px rgb(0, 0, 0);
 }
 
 .headerTitleLg {
     position: absolute;
-    top: 20%;
-    font-size: 100px;
+    top: 21%;
+    font-size: 120px;
+    font-weight: 800;
+    color: #dc5d03;
+    -webkit-text-stroke: 2px rgb(255, 255, 255);
 }
 
 .headerImg {

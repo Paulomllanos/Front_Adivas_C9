@@ -1,7 +1,7 @@
-import { Container } from "@mui/material";
 import './Home.css'
 
 const Home = () => {
+
   return (
     <div>
       <div className="header">

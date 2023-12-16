@@ -17,7 +17,7 @@ const ProductProvider = ({children}) => {
             stock: ""
         }]
     }
-
+    
     const [productState, dispatch] = useReducer(productReducer, initialState)
 
     const getProducts = async() => {
@@ -49,7 +49,8 @@ const ProductProvider = ({children}) => {
     <ProductContext.Provider value={{
         getProducts, 
         getProductById, 
-        products: productState.products
+        products: productState.products,
+        product: productState.product
     }}>
         {children}
     </ProductContext.Provider>
