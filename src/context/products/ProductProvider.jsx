@@ -1,7 +1,7 @@
 import ProductContext from './ProductContext';
-import axios from 'axios';
 import { useReducer } from 'react';
 import productReducer from './productReducer';
+import axiosClient from '../../config/axiosClient';
 
 
 const ProductProvider = ({children}) => {
@@ -21,7 +21,7 @@ const ProductProvider = ({children}) => {
     const [productState, dispatch] = useReducer(productReducer, initialState)
 
     const getProducts = async() => {
-        const response = await axios.get("http://localhost:8080/products")
+        const response = await axiosClient.get("/products")
         const productos = response.data.info;
         
         dispatch({
@@ -30,9 +30,29 @@ const ProductProvider = ({children}) => {
         })
     }
 
+    const getProductById = async(id) => {
+        try {
+            const response = await axiosClient.get(`/product/${id}`);
+            const productInfo = response.data.product;
+
+            dispatch({
+                type: "GET_PRODUCT",
+                payload: productInfo 
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    } 
+
 
   return (
-    <ProductContext.Provider value={{getProducts, products: productState.products}}>{children}</ProductContext.Provider>
+    <ProductContext.Provider value={{
+        getProducts, 
+        getProductById, 
+        products: productState.products
+    }}>
+        {children}
+    </ProductContext.Provider>
   )
 }
 

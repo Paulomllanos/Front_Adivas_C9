@@ -15,6 +15,11 @@ const productReducer = (state, action) => {
                     stock: ""
                 }]
             }
+        case "GET_PRODUCT":
+            return {
+                ...state,
+                product: [payload]
+            }
         default:
             return state;
     }
